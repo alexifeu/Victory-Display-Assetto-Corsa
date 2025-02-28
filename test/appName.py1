@@ -1,0 +1,89 @@
+import sys
+import ac
+import acsys
+import os
+import platform
+
+# Add third_party to sys.path
+if platform.architecture()[0] == "64bit":
+    libdir = 'third_party/lib64'
+else:
+    libdir = 'third_party/lib'
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), libdir))
+os.environ['PATH'] = os.environ['PATH'] + ";."
+
+try:
+    from third_party.sim_info import info
+except ImportError:
+    ac.console("Error: sim_info library not found. Please ensure it is correctly installed.")
+    info = None
+
+# Global variables
+app_window = 0
+win_image = 0
+total_laps_label = 0
+show_win_image = False
+total_laps = 0
+timer = 0.0
+
+def acMain(ac_version):
+    """Initializes the Assetto Corsa app."""
+    global app_window, win_image, total_laps_label
+
+    # Create the app window
+    app_window = ac.newApp("Lap Completion Indicator")
+    ac.setSize(app_window, 200, 200)
+
+    # Load the win image
+    image_path = os.path.join(os.path.dirname(__file__), "images", "win.png")
+    if os.path.exists(image_path):
+        win_image = ac.newTexture(image_path)
+        ac.addRenderCallback(app_window, render_win_image)
+    else:
+        ac.console(f"Error: Image not found at {image_path}")
+
+    # Create label for total laps
+    total_laps_label = ac.addLabel(app_window, "Total Laps: Loading...")
+    ac.setPosition(total_laps_label, 3, 30)
+    ac.setFontSize(total_laps_label, 18)
+
+    ac.log("Lap Completion Indicator app started.")
+    ac.console("Lap Completion Indicator app started.")
+
+    return "Lap Completion Indicator"
+
+def render_win_image(deltaT):
+    """Renders the win image if it should be shown."""
+    global app_window, win_image, show_win_image
+
+    if win_image and show_win_image:
+        window_width, window_height = ac.getSize(app_window)
+        image_width, image_height = 1392, 206
+        scale_factor = 1.30
+        scaled_width = image_width * scale_factor
+        scaled_height = image_height * scale_factor
+        x = (window_width - scaled_width) / 2
+        y = (window_height - scaled_height) / 2
+        ac.glColor4f(1.0, 1.0, 1.0, 1.0)
+        ac.glQuadTextured(x, y, scaled_width, scaled_height, win_image)
+
+def acUpdate(deltaT):
+    """Updates the app state."""
+    global total_laps_label, show_win_image, total_laps, timer
+
+    timer += deltaT
+
+    if timer > 1.0 and total_laps == 0 and info:
+        if info.graphics.numberOfLaps > 0:
+            total_laps = info.graphics.numberOfLaps
+            ac.setText(total_laps_label, f"Total Laps: {total_laps}")
+
+    current_lap = ac.getCarState(0, acsys.CS.LapCount)
+    if total_laps > 0 and current_lap >= total_laps - 1 and not show_win_image:
+        show_win_image = True
+
+def acShutdown():
+    """Shuts down the app."""
+    ac.log("Lap Completion Indicator app stopped.")
+    ac.console("Lap Completion Indicator app stopped.")
+    return
