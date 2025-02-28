@@ -23,15 +23,17 @@ laps_completed = 0
 def acMain(ac_version):
     global win_image, app_window
 
-    app_window = ac.newApp("appName")
+    app_window = ac.newApp(" ") # App name is a space, but it still exists.
     ac.setSize(app_window, 1392, 206)
     ac.setBackgroundOpacity(app_window, 0)
+    ac.drawBorder(app_window, 0) # Remove border
+    ac.setTitle(app_window, "") # Remove title
 
     win_image = ac.newTexture(os.path.join(os.path.dirname(__file__), "images", "win.png"))
 
     ac.addRenderCallback(app_window, render_image)
 
-    return "appName"
+    return " " # return a space.
 
 def render_image(deltaT):
     global win_image, app_window, show_win_image
