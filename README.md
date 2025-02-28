@@ -3,10 +3,10 @@
 A simple **Assetto Corsa Python app** that displays a **"You Win"** image when the player completes a lap.  
 
 ## **Features**  
-✅ **Lap Tracking** – Detects and updates lap count in real time.  
+✅ **Lap Tracking** Detects how many laps a race has and only shows image when laps are completed.  
 ✅ **On-Screen Notification** – Shows a **"You Win"** image after completing **one lap**.  
 
-This app works perfectly for **Initial D-style Touge races**, which are typically **one-lap duels**. It **doesn't check for first place**, but as long as you're racing **one opponent and one lap**, it works just fine. 😆  
+This app works perfectly for **Initial D-style Touge races**, which are typically **one-lap duels**. It **doesn't check for first place**, but as long as you're racing **one opponent**, it works just fine. 😆  
 
 ## **Installation**  
 1. Copy the `appName` folder into `Assetto Corsa/apps/python/`.  
