@@ -21,10 +21,6 @@ The app uses the Assetto Corsa Python API to:
                 ├── appName.py
                 ├── images/
                 │   └── win.png
-                ├── test/
-                │   ├── appname.ps3
-                │   ├── appName.py1
-                │   └── appName.pz2
                 └── third_party/
                     ├── sim_info.py
                     ├── lib/
