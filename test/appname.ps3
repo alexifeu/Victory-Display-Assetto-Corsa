@@ -18,13 +18,14 @@ from third_party.sim_info import info
 win_image = 0
 app_window = 0
 show_win_image = False
-laps_completed = 0  # Track the number of completed laps
+laps_completed = 0
 
 def acMain(ac_version):
     global win_image, app_window
 
     app_window = ac.newApp("appName")
-    ac.setSize(app_window, 200, 200)
+    ac.setSize(app_window, 1392, 206) #Set window size to image size
+    ac.setBackgroundOpacity(app_window, 0) #Set background to transparent.
 
     ac.log("Hello, Assetto Corsa application world!")
     ac.console("Hello, Assetto Corsa console!")
@@ -39,16 +40,10 @@ def render_image(deltaT):
     global win_image, app_window, show_win_image
 
     if show_win_image and win_image:
-        window_width, window_height = ac.getSize(app_window)
         image_width, image_height = 1392, 206
-        scale_factor = 1.30
-        scaled_width = image_width * scale_factor
-        scaled_height = image_height * scale_factor
-        x = (window_width - scaled_width) / 2
-        y = (window_height - scaled_height) / 2
 
-        ac.glColor4f(1.0, 1.0, 1.0, 1.0)
-        ac.glQuadTextured(x, y, scaled_width, scaled_height, win_image)
+        ac.glColor4f(1.0, 1.0, 1.0, 1.0) #Set color to white
+        ac.glQuadTextured(0, 0, image_width, image_height, win_image) #Draw image at 0,0
 
 def acUpdate(deltaT):
     global show_win_image, laps_completed
@@ -57,13 +52,13 @@ def acUpdate(deltaT):
 
     if current_laps > laps_completed:
         laps_completed = current_laps
-        if laps_completed >= 1:
-            show_win_image = True  # Show the image after 1 lap or more
+        if laps_completed >= info.graphics.numberOfLaps:
+            show_win_image = True
         else:
             show_win_image = False
-    elif current_laps < laps_completed: # Reset when session restarts.
+    elif current_laps < laps_completed:
         laps_completed = current_laps
         show_win_image = False
-    
+
 def acShutdown():
     return

@@ -24,11 +24,8 @@ def acMain(ac_version):
     global win_image, app_window
 
     app_window = ac.newApp("appName")
-    ac.setSize(app_window, 1392, 206) #Set window size to image size
-    ac.setBackgroundOpacity(app_window, 0) #Set background to transparent.
-
-    ac.log("Hello, Assetto Corsa application world!")
-    ac.console("Hello, Assetto Corsa console!")
+    ac.setSize(app_window, 1392, 206)
+    ac.setBackgroundOpacity(app_window, 0)
 
     win_image = ac.newTexture(os.path.join(os.path.dirname(__file__), "images", "win.png"))
 
@@ -42,22 +39,28 @@ def render_image(deltaT):
     if show_win_image and win_image:
         image_width, image_height = 1392, 206
 
-        ac.glColor4f(1.0, 1.0, 1.0, 1.0) #Set color to white
-        ac.glQuadTextured(0, 0, image_width, image_height, win_image) #Draw image at 0,0
+        ac.glColor4f(1.0, 1.0, 1.0, 1.0)
+        ac.glQuadTextured(0, 0, image_width, image_height, win_image)
 
 def acUpdate(deltaT):
     global show_win_image, laps_completed
 
     current_laps = ac.getCarState(0, acsys.CS.LapCount)
+    total_laps = info.graphics.numberOfLaps
 
-    if current_laps > laps_completed:
-        laps_completed = current_laps
-        if laps_completed >= info.graphics.numberOfLaps:
+    session_type = info.graphics.session
+
+    if session_type == 2:
+        position = ac.getCarRealTimeLeaderboardPosition(0)
+    else:
+        position = ac.getCarLeaderboardPosition(0)
+
+    if position != '-':
+        if current_laps >= total_laps and str(position) == "0":
             show_win_image = True
         else:
             show_win_image = False
-    elif current_laps < laps_completed:
-        laps_completed = current_laps
+    else:
         show_win_image = False
 
 def acShutdown():
