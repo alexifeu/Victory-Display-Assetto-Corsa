@@ -11,7 +11,18 @@ The app uses the Assetto Corsa Python API to:
 
 ## Installation
 
-1.  **Place Files:** Copy the `appName.py` file and the `images` folder (containing `win.png`) into your Assetto Corsa `apps/python/` directory.
+1.  **Copy Folder:** Copy the entire `appName` folder into your Assetto Corsa `apps/python/` directory. The folder structure should look like this:
+
+    ```
+    assettocorsa/
+    └── apps/
+        └── python/
+            └── appName/
+                ├── appName.py
+                └── images/
+                    └── win.png
+    ```
+
 2.  **Run Assetto Corsa:** Launch Assetto Corsa and activate the "appName" app from the app sidebar.
 
 ## Customization
