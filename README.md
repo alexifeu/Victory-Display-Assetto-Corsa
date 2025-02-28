@@ -19,8 +19,18 @@ The app uses the Assetto Corsa Python API to:
         └── python/
             └── appName/
                 ├── appName.py
-                └── images/
-                    └── win.png
+                ├── images/
+                │   └── win.png
+                ├── test/
+                │   ├── appname.ps3
+                │   ├── appName.py1
+                │   └── appName.pz2
+                └── third_party/
+                    ├── sim_info.py
+                    ├── lib/
+                    │   └── _ctypes.pyd
+                    └── lib64/
+                        └── _ctypes.pyd
     ```
 
 2.  **Run Assetto Corsa:** Launch Assetto Corsa and activate the "appName" app from the app sidebar.
