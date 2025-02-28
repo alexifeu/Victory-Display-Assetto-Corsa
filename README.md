@@ -1,30 +1,17 @@
-# **Assetto Corsa "You Win" App**
+# Assetto Corsa "Win Image" App
 
-A simple Assetto Corsa Python app that displays a "You Win" image when the player completes the required number of laps.
+Displays a "You Win" image when you finish first in a race.
 
-# **Features**
+## Features
 
-* **✅ Lap Tracking:** Detects the total number of laps set for the race and displays an image only when the player completes the required number of laps.
-* **✅ On-Screen Notification:** Displays a "You Win" image on-screen at the end of the race, specifically when the player's completed lap count matches the total laps of the race.
+* **Win Detection:** Shows "win.png" when you complete all laps and are in 1st place.
 
-This app is ideal for races where a specific number of laps are set. It does not currently detect race position.
+## Installation
 
-# **Installation**
+1.  Copy the `appName` folder to `Assetto Corsa/apps/python/`.
+2.  Start Assetto Corsa.
 
-1.  Copy the `appName` folder into `Assetto Corsa/apps/python/`.
-2.  Start Assetto Corsa and the app will automatically run.
+## Usage
 
-# **How It Works**
-
-* Uses `ac.getCarState(0, acsys.CS.LapCount)` to track the player's completed laps.
-* Uses shared memory via the `sim_info.py` to track the total number of laps.
-* Displays `win.png` in the app window when the player's completed laps match the total laps.
-
-# **Future Improvements**
-
-* 🔹 Detect actual race completion & position.
-* 🔹 Add customizable image display options.
-
-# **Contributions**
-
-Feel free to improve this app. Contributions are welcome! But please let me know. :)
+* The app will automatically display the "win.png" image when you win.
+* Move the app window to your preferred position.
