@@ -20,7 +20,7 @@ show_win_image = False
 def acMain(ac_version):
     global win_image, app_window
 
-    app_window = ac.newApp("Race Status")
+    app_window = ac.newApp("Victory Display")
     ac.setSize(app_window, 1392, 206)
     ac.setBackgroundOpacity(app_window, 0)
     ac.drawBorder(app_window, 0)
