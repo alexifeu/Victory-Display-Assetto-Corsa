@@ -1,8 +1,9 @@
-import sys
 import ac
 import acsys
 import os
+import sys
 import platform
+import configparser
 
 if platform.architecture()[0] == "64bit":
     libdir = 'third_party/lib64'
@@ -12,6 +13,8 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), libdir))
 os.environ['PATH'] = os.environ['PATH'] + ";."
 
 from third_party.sim_info import info
+
+app_path = "apps/python/Victory Display/"
 
 win_image = 0
 app_window = 0
